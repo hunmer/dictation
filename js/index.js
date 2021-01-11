@@ -185,7 +185,7 @@ function selectList(s_list){
       <div class="card-body">
           <div class="audio_show text-center">
             <img class="mb-2" src="./img/audio-wave.png" width="50px" height="50px" data-action="switchAudio">
-			<audio src="`+g_s_audio_path+`/audio/`+s_list+`/`+d+`.wav" ontimeupdate="audio_timeUpdate(this)" onended="$(this).prev().attr('src', './img/audio-wave.png')"></audio>
+			<audio src="./audio/`+s_list+`/`+d+`.wav" ontimeupdate="audio_timeUpdate(this)" onended="$(this).prev().attr('src', './img/audio-wave.png')"></audio>
             <div class="progress mb-2">
               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
             </div>
