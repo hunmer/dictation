@@ -1,4 +1,4 @@
-
+// 2021年1月11日 20点23分 
 var a_get = getGETArray();
 var g_s_audio_path = '.'
 var g_s_api = 'https://neysummer-listen-write.glitch.me/api/'
