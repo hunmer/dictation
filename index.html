@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Listen and Write</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="full-screen" content="yes">
+	<meta name="browsermode" content="application">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="x5-page-mode" content="app">
+    <link rel="shortcut icon" href="favicon.ico">
+	<meta name="Author" contect="liaoyanjie2000@gmail.com">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="css/hsycmsAlert.css">
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<!-- 复制 -->
+<div class="modal fade text-center" tabindex="9999" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="modal_copy" style="z-index: 9999">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">コピー</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="clipboard_content">内容</label></br>
+          <textarea id="clipboard_content" class="w-100"></textarea></br>
+          <button id='clipboard' type="button" class="btn btn-primary" data-clipboard-target="#clipboard_content" onclick="$('#modal_copy').modal('hide')">コピー</button>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img class="round mr-2" src="./img/default.png" width="30px" height="30px">
+   <span class="badge badge-secondary">...</span>
+  </a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse text-center" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="javascript: loginOut()">Login out</a>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="modal_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">暗号を入力下さい！</h5>
+      </div>
+      <div class="modal-body">
+         <div class="form-group">
+          <label for="exampleInputEmail1">暗号</label>
+          <input type="text" class="form-control" id="input_user" onkeydown="if(event.keyCode == 13) checkUser();">
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="checkUser();">確認</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="display: none;">
+  <div class="dropdown show" id='list'>
+    <a class="btn btn-primary dropdown-toggle w-100" id="list_name" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">List</a>
+
+    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
+    </div>
+  </div>
+  <div id="card_list">
+   <!-- 
+ <div class="card mt-3">
+      <div class="card-header">
+        Featured
+      </div>
+      <div class="card-body">
+          <div class="audio_show text-center">
+            <img class="mb-1" src="./img/audio-wave.png" width="50px" height="50px">
+            <div class="progress mb-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
+          </div>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                      <img class="round" src="./img/maki.jpg" width="30px" height="30px">
+                      <small class="ml-1">maki</small>
+                    </h5>
+                    <small>3 days ago</small>
+                  </div>
+                  <p class="mb-1 msg">....</p>
+                  <div class="icon_list float-right">
+                   <svg class="bi bi-trash2" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M3.18 4l1.528 9.164a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836L12.82 4H3.18zm.541 9.329A2 2 0 0 0 5.694 15h4.612a2 2 0 0 0 1.973-1.671L14 3H2l1.721 10.329z"/>
+  <path d="M14 3c0 1.105-2.686 2-6 2s-6-.895-6-2 2.686-2 6-2 6 .895 6 2z"/>
+  <path fill-rule="evenodd" d="M12.9 3c-.18-.14-.497-.307-.974-.466C10.967 2.214 9.58 2 8 2s-2.968.215-3.926.534c-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466zM8 5c3.314 0 6-.895 6-2s-2.686-2-6-2-6 .895-6 2 2.686 2 6 2z"/>
+</svg>
+|
+<svg data-action="copyMsg" class="bi bi-clipboard" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+  <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+</svg>
+|
+<svg data-action="inputText" class="bi bi-card-text" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+  <path fill-rule="evenodd" d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+</svg>
+
+                  </div>
+
+
+                </a>
+      </div>
+        </p>
+        <div class="comment">
+                   <div class="form-group text-center">
+                    <label for="exampleInputEmail1">
+                      <svg class="bi bi-chat-dots-fill" width="2em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+</svg>
+
+
+                    </label>
+                    <textarea id="input_msg" class="form-control input_comment"></textarea>
+                  </div>
+                  <button class="btn btn-primary float-right" data-action="sendMsg">send</button>
+                </div>
+      </div>
+      <div class="card-footer text-right">
+        2 days ago
+      </div>
+    </div>
+    -->
+  </div>
+</div>
+<!-- 弹窗插件 -->
+
+ <!--普通弹窗-->
+ <div class="hsycms-model-mask" id="mask-alert"></div>
+ <div class="hsycms-model hsycms-model-alert" id="alert">
+   <div class="hscysm-model-title">確認</div>
+   <div class="hsycms-model-text">这里是内容</div>
+   <div class="hsycms-model-btn">
+    <button type="button ok">はい</button>
+   </div>
+ </div>
+
+ <!--提示弹窗-->
+ <div class="hsycms-model-mask" id="mask-tips"></div>
+ <div class="hsycms-model hsycms-model-tips" id="tips">
+ <div class="hsycms-model-text">这里是提示内容</div>
+ </div>
+
+ <!--询问弹窗-->
+ <div class="hsycms-model-mask" id="mask-confirm"></div>
+ <div class="hsycms-model hsycms-model-confirm" id="confirm">
+   <div class="hscysm-model-title">確認</div>
+   <div class="hsycms-model-text">操作してもよろしいですか？</div>
+   <div class="hsycms-model-btn">
+    <button type="button" class="cancel">いいえ</button>
+    <button type="button" class="ok">はい</button>
+   </div>
+ </div>
+
+<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model"></div>
+ <div class="hsycms-model hsycms-model-model" id="model">
+  <div class="hscysm-model-title">自定义弹窗</div>
+  <div class="hsycms-model-content"></div>
+</div> 
+
+
+<!--提交成功-->
+<div class="hsycms-model-mask" id="mask-success"></div>
+<div class="hsycms-model hsycms-model-success" id="success">
+ <div class="hsycms-model-icon">
+  <svg width="50" height="50">
+   <circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#238af4" stroke-width="2"></circle>   
+   <polyline class="hsycms-alert-svggou" fill="none" stroke="#238af4" stroke-width="2.5" points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
+ </svg>
+ </div>
+ <div class="hsycms-model-text">操作成功</div>
+</div>
+
+<!--提交失败-->
+<div class="hsycms-model-mask" id="mask-error"></div>
+<div class="hsycms-model hsycms-model-error" id="error">
+ <div class="hsycms-model-icon">
+  <svg width="50" height="50">
+   <circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2"></circle>   
+   <polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35" stroke-linecap="round" stroke-linejoin="round" />
+   <polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17" stroke-linecap="round" stroke-linejoin="round" />
+ </svg>
+ </div>
+ <div class="hsycms-model-text">操作失敗</div>
+</div>
+
+<!--这是Loading-->
+<div class="hsycms-model-mask" id="mask-loading"></div>
+<div class="hsycms-model hsycms-model-loading" id="loading" onclick="setLoading(false);">
+ <div class="hsycms-model-load">
+   <span></span>
+   <span></span>
+   <span></span>
+ </div>
+ <div class="hsycms-model-text">読み込み中</div>
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/until.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/hsycmsAlert.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/index.js"></script>
+</html>
