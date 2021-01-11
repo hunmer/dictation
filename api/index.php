@@ -27,6 +27,10 @@
 	}else{
 		$json = json_decode(file_get_contents('res.json'), true);
 	}
+	if(count($_POST) == 0){
+		echo json_encode($json);
+		exit();
+	}
 	$user = $_POST['user'];
 	if(!isset($json['user'][$user])){
 		exit();

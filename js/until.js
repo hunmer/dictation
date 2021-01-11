@@ -1,6 +1,7 @@
 
 var a_get = getGETArray();
-var g_s_audio_path = 'https://figurosity.glitch.me/';
+var g_s_audio_path = '.'
+var g_s_api = 'https://neysummer-listen-write.glitch.me/api/'
 var g_localKey = 'dictation_';
 // 本地储存前缀
 var g_config = local_readJson('config', {

@@ -41,7 +41,7 @@ $(function() {
 					setFormTip(input, true);
 
 
-					$.post('./api/index.php', {
+					$.post(g_s_api, {
 						user: g_config.user,
 						list: g_config.lastList,
 						fid: parent.attr('data-fid'),
@@ -64,7 +64,7 @@ $(function() {
 				var dom_msg = dom.parents('.msg');
 				confirm('消去してもよろしいですか？', {
 					ok: function(){
-						$.post('./api/index.php', {
+						$.post(g_s_api, {
 							user: g_config.user,
 							list: g_config.lastList,
 							fid: parent.attr('data-fid'),
@@ -150,9 +150,8 @@ function getCommentHtml(user, time, msg){
 }
 
 function loadData(){
-	$.getJSON('./api/res.json', {t: new Date().getTime()}, function(json, textStatus) {
+	$.getJSON(g_s_api, {t: new Date().getTime()}, function(json, textStatus) {
 		g_datas = json;
-		console.log(g_datas);
 		checkLogin();
 		initData();
 	});
