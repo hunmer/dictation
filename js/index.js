@@ -62,26 +62,30 @@ $(function() {
 			case 'deleteMsg':
 				var parent = dom.parents('.card');
 				var dom_msg = dom.parents('.msg');
-				confirm('消去してもよろしいですか？', {
-					ok: function(){
-						$.post(g_s_api, {
-							user: g_config.user,
-							list: g_config.lastList,
-							fid: parent.attr('data-fid'),
-							time: dom_msg.attr('data-time'),
-							action: 'del'
-						}, function(data, textStatus, xhr) {
-							if(textStatus == 'success' && data == '1'){
-								dom_msg.remove();
-			 					hsycms.success('success', '削除されました');
-							}else{
-			 					hsycms.error('error', 'error');
-							}
-						});
-					}
-
-				})
-				break;
+				var data = {
+					user: g_config.user,
+					list: g_config.lastList,
+					fid: parent.attr('data-fid'),
+					time: dom_msg.attr('data-time'),
+					action: 'del'
+				};
+				 hsycms.confirm('confirm','消去してもよろしいですか？',
+			         function(res){            
+     					 hsycms.loading('loading','正在加载');
+			            g_post_handle = $.post(g_s_api, data, function(data, textStatus, xhr) {
+        					 hsycms.hideLoading('loading');
+								if(textStatus == 'success' && data == '1'){
+				 					hsycms.success('success', '削除されました');
+									dom_msg.remove();
+								}else{
+				 					//hsycms.error('error', 'error');
+								}
+							});
+			         },
+			        function(res){
+			         },
+			      );
+				return;
 
 			case 'copyMsg':
 				setCopyText(dom.parents('.list-group-item').find('.msg_content').html());
@@ -110,7 +114,6 @@ $(function() {
 
 	loadData();
 });
-
 function setCopyText(text){
 	$('#clipboard_content').val(text);
 	$('#modal_copy').modal('show');
