@@ -1,7 +1,7 @@
-// 2021年1月11日 20点23分 dd
+// 2021年1月11日 20点29分
 var a_get = getGETArray();
-var g_s_audio_path = '.'
-var g_s_api = 'https://neysummer-listen-write.glitch.me/api/'
+var g_s_audio_path = '.';
+var g_s_api = 'https://neysummer-listen-write.glitch.me/api/';
 var g_localKey = 'dictation_';
 // 本地储存前缀
 var g_config = local_readJson('config', {
